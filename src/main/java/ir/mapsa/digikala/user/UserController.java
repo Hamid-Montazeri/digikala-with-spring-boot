@@ -1,6 +1,8 @@
 package ir.mapsa.digikala.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,32 +21,37 @@ public class UserController {
     }
 
     @PostMapping("/save")
-    public User save(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<User> save(@RequestBody UserDTO userDTO) {
         User user = mapper.toEntity(userDTO);
-        return userService.save(user);
+        User savedUser = userService.save(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
     @PutMapping("/update")
-    public User update(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<User> update(@RequestBody UserDTO userDTO) {
         User user = mapper.toEntity(userDTO);
-        return userService.update(user);
+        User updatedUser = userService.update(user);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(updatedUser);
     }
 
     @DeleteMapping("/delete")
-    public void delete(@RequestBody User user) {
+    public ResponseEntity<Void> delete(@RequestBody User user) {
         userService.delete(user);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}")
-    public UserDTO getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
         User user = userService.getUserById(id);
-        return mapper.toDTO(user);
+        UserDTO userDTO = mapper.toDTO(user);
+        return ResponseEntity.ok(userDTO);
     }
 
     @GetMapping("/getAll")
-    public List<UserDTO> getAll() {
+    public ResponseEntity<List<UserDTO>> getAll() {
         List<User> allUsers = userService.getAllUsers();
-        return mapper.toDTOs(allUsers);
+        List<UserDTO> userDTOS = mapper.toDTOs(allUsers);
+        return ResponseEntity.ok(userDTOS);
     }
 
 

@@ -1,6 +1,8 @@
 package ir.mapsa.digikala.category;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,32 +21,37 @@ public class CatController {
     }
 
     @PostMapping("/save")
-    public Category save(@RequestBody CategoryDTO categoryDTO) {
+    public ResponseEntity<Category> save(@RequestBody CategoryDTO categoryDTO) {
         Category category = mapper.toEntity(categoryDTO);
-        return catService.save(category);
+        Category savedCategory = catService.save(category);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedCategory);
     }
 
     @PutMapping("/update")
-    public Category update(@RequestBody CategoryDTO categoryDTO) {
+    public ResponseEntity<Category> update(@RequestBody CategoryDTO categoryDTO) {
         Category category = mapper.toEntity(categoryDTO);
-        return catService.update(category);
+        Category updatedCategory = catService.update(category);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(updatedCategory);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         catService.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}")
-    public CategoryDTO getCategoryById(@PathVariable Long id) {
+    public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable Long id) {
         Category category = catService.getCatById(id);
-        return mapper.toDTO(category);
+        CategoryDTO categoryDTO = mapper.toDTO(category);
+        return ResponseEntity.ok(categoryDTO);
     }
 
     @GetMapping("/")
-    public List<CategoryDTO> getAll() {
+    public ResponseEntity<List<CategoryDTO>> getAll() {
         List<Category> categories = catService.getAllCats();
-        return mapper.toDTOs(categories);
+        List<CategoryDTO> categoryDTOS = mapper.toDTOs(categories);
+        return ResponseEntity.ok(categoryDTOS);
     }
 
 

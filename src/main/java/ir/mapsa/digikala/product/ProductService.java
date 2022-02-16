@@ -2,6 +2,8 @@ package ir.mapsa.digikala.product;
 
 import ir.mapsa.digikala.category.Category;
 import ir.mapsa.digikala.category.ICatService;
+import ir.mapsa.digikala.user.IUserService;
+import ir.mapsa.digikala.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
@@ -14,17 +16,23 @@ public class ProductService implements IProductService {
 
     private final ProductRepo productRepo;
     private final ICatService catService;
+    private final IUserService userService;
 
     @Autowired
-    public ProductService(ProductRepo productRepo, ICatService catService) {
+    public ProductService(ProductRepo productRepo, ICatService catService, IUserService userService) {
         this.productRepo = productRepo;
         this.catService = catService;
+        this.userService = userService;
     }
 
     @Override
-    public Product save(Product product, Long catId) {
+    public Product save(Product product, Long catId, Long userId) {
         Category category = catService.getCatById(catId);
+        User user = userService.getUserById(userId);
+
         product.setCategory(category);
+        product.setUser(user);
+
         return productRepo.save(product);
     }
 
@@ -43,7 +51,7 @@ public class ProductService implements IProductService {
         savedProduct.setSalePrice(product.getSalePrice());
         savedProduct.setImage(product.getImage());
         savedProduct.setType(product.getType());
-//        savedProduct.setUser(product.getUser());
+        savedProduct.setUser(product.getUser());
 
         return productRepo.save(savedProduct);
     }
@@ -67,4 +75,6 @@ public class ProductService implements IProductService {
     public List<Product> getAllProducts() {
         return (List<Product>) productRepo.findAll();
     }
+
+
 }
