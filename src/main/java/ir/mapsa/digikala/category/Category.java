@@ -1,9 +1,12 @@
 package ir.mapsa.digikala.category;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "tbl_category")
+@Data
 public class Category {
 
     @Id
@@ -14,19 +17,4 @@ public class Category {
     @Column(nullable = false)
     private String name;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
