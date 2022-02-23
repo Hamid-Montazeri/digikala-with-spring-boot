@@ -51,7 +51,7 @@ public class UserController {
         return ResponseEntity.ok(userDTO);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/")
     public ResponseEntity<List<UserDTO>> getAll() {
         List<User> allUsers = userService.getAllUsers();
         List<UserDTO> userDTOS = mapper.toDTOs(allUsers);

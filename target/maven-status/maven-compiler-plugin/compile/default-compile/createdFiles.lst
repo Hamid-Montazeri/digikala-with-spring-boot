@@ -1,1 +1,5 @@
-ir\mapsa\digikala\Application.class
+ir\mapsa\digikala\order\entity\Order.class
+ir\mapsa\digikala\cart\entity\CartDTO.class
+ir\mapsa\digikala\order\service\IOrderService.class
+ir\mapsa\digikala\order\service\OrderService.class
+ir\mapsa\digikala\cart\entity\CartMapper.class

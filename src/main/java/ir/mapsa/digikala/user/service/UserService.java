@@ -1,10 +1,11 @@
 package ir.mapsa.digikala.user.service;
 
-import ir.mapsa.digikala.user.repository.UserRepo;
+import ir.mapsa.digikala.exception.NotFoundException;
 import ir.mapsa.digikala.user.entity.User;
+import ir.mapsa.digikala.user.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,9 @@ public class UserService implements IUserService {
 
     @Override
     public User save(User user) {
+//        if (userRepo.existsById(user.getId())) {
+//            throw new ConflictException("The User with ID \"" + user.getId() + "\" already exists");
+//        }
         return userRepo.save(user);
     }
 
@@ -28,7 +32,7 @@ public class UserService implements IUserService {
     public User update(User user) {
         Optional<User> optionalUser = userRepo.findById(user.getId());
         if (optionalUser.isEmpty()) {
-            throw new NotFoundException("'User' not found with requested 'id'");
+            throw new NotFoundException("The Product \"" + user.getName() + "\" with ID \"" + user.getId() + "\" not found");
         }
 
         User savedUser = optionalUser.get();
@@ -49,15 +53,20 @@ public class UserService implements IUserService {
     public User getUserById(Long id) {
         Optional<User> optionalUser = userRepo.findById(id);
         if (optionalUser.isEmpty()) {
-            throw new NotFoundException("'User' not found with requested 'id'");
+            throw new NotFoundException("The requested User with ID \"" + id + "\" not found");
         }
 
         return optionalUser.get();
     }
 
     @Override
+    @Cacheable(value = "user")
     public List<User> getAllUsers() {
-        return (List<User>) userRepo.findAll();
+        List<User> users = (List<User>) userRepo.findAll();
+        if (users.isEmpty()) {
+            throw new NotFoundException("No User found!");
+        }
+        return users;
     }
 
 }

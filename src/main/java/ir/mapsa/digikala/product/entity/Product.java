@@ -1,19 +1,21 @@
 package ir.mapsa.digikala.product.entity;
 
+import ir.mapsa.digikala.cart.entity.Cart;
 import ir.mapsa.digikala.category.entity.Category;
 import ir.mapsa.digikala.user.entity.User;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "tbl_product")
-@Data
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
     private Long id;
 
     @Column(nullable = false)
@@ -37,6 +39,9 @@ public class Product {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Cart cart;
 
 
 }

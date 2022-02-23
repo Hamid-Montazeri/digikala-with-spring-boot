@@ -1,6 +1,7 @@
 package ir.mapsa.digikala.user.entity;
 
 import io.swagger.annotations.ApiModelProperty;
+import ir.mapsa.digikala.address.entity.Address;
 import lombok.Data;
 
 @Data
@@ -17,6 +18,10 @@ public class UserDTO {
 
     @ApiModelProperty(required = true, hidden = false)
     private String phone;
+
+    @ApiModelProperty(required = true, hidden = false)
+    private Address address;
+
 
 
 }

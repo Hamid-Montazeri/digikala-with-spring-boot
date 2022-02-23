@@ -5,4 +5,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface CatRepo extends PagingAndSortingRepository<Category, Long> {
 
+    @Override
+    boolean existsById(Long catId);
 }

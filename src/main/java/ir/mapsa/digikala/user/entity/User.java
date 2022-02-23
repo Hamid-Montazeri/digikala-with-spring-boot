@@ -1,5 +1,6 @@
 package ir.mapsa.digikala.user.entity;
 
+import ir.mapsa.digikala.address.entity.Address;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,7 +12,6 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
     private Long id;
 
     @Column
@@ -23,7 +23,7 @@ public class User {
     @Column
     private String phone;
 
-//    @OneToMany
-//    private List<Product> products;
+    @OneToOne
+    private Address address;
 
 }
