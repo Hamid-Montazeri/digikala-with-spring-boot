@@ -7,64 +7,64 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-02-24T01:20:10+0330",
+    date = "2022-02-26T02:08:25+0330",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.1 (Oracle Corporation)"
 )
 @Component
 public class AddressMapperImpl implements AddressMapper {
 
     @Override
-    public Address toEntity(AddressDTO addressDTO) {
-        if ( addressDTO == null ) {
+    public Address toEntity(AddressDTO dto) {
+        if ( dto == null ) {
             return null;
         }
 
         Address address = new Address();
 
-        address.setId( addressDTO.getId() );
-        address.setState( addressDTO.getState() );
-        address.setCity( addressDTO.getCity() );
-        address.setMainStreet( addressDTO.getMainStreet() );
-        address.setAlley( addressDTO.getAlley() );
-        address.setNumberPlate( addressDTO.getNumberPlate() );
-        address.setApartmentNumber( addressDTO.getApartmentNumber() );
-        address.setPostalCode( addressDTO.getPostalCode() );
-        address.setLatitude( addressDTO.getLatitude() );
-        address.setLongitude( addressDTO.getLongitude() );
+        address.setId( dto.getId() );
+        address.setState( dto.getState() );
+        address.setCity( dto.getCity() );
+        address.setMainStreet( dto.getMainStreet() );
+        address.setAlley( dto.getAlley() );
+        address.setNumberPlate( dto.getNumberPlate() );
+        address.setApartmentNumber( dto.getApartmentNumber() );
+        address.setPostalCode( dto.getPostalCode() );
+        address.setLatitude( dto.getLatitude() );
+        address.setLongitude( dto.getLongitude() );
 
         return address;
     }
 
     @Override
-    public AddressDTO toDTO(Address address) {
-        if ( address == null ) {
+    public AddressDTO toDto(Address entity) {
+        if ( entity == null ) {
             return null;
         }
 
         AddressDTO addressDTO = new AddressDTO();
 
-        addressDTO.setId( address.getId() );
-        addressDTO.setState( address.getState() );
-        addressDTO.setCity( address.getCity() );
-        addressDTO.setMainStreet( address.getMainStreet() );
-        addressDTO.setAlley( address.getAlley() );
-        addressDTO.setNumberPlate( address.getNumberPlate() );
-        addressDTO.setApartmentNumber( address.getApartmentNumber() );
-        addressDTO.setPostalCode( address.getPostalCode() );
-        addressDTO.setLatitude( address.getLatitude() );
-        addressDTO.setLongitude( address.getLongitude() );
+        addressDTO.setId( entity.getId() );
+        addressDTO.setState( entity.getState() );
+        addressDTO.setCity( entity.getCity() );
+        addressDTO.setMainStreet( entity.getMainStreet() );
+        addressDTO.setAlley( entity.getAlley() );
+        addressDTO.setNumberPlate( entity.getNumberPlate() );
+        addressDTO.setApartmentNumber( entity.getApartmentNumber() );
+        addressDTO.setPostalCode( entity.getPostalCode() );
+        addressDTO.setLatitude( entity.getLatitude() );
+        addressDTO.setLongitude( entity.getLongitude() );
 
         return addressDTO;
     }
 
     @Override
-    public List<Address> toEntities(List<AddressDTO> addressDTOs) {
-        if ( addressDTOs == null ) {
+    public List<Address> toEntities(List<AddressDTO> dtos) {
+        if ( dtos == null ) {
             return null;
         }
 
-        List<Address> list = new ArrayList<Address>( addressDTOs.size() );
-        for ( AddressDTO addressDTO : addressDTOs ) {
+        List<Address> list = new ArrayList<Address>( dtos.size() );
+        for ( AddressDTO addressDTO : dtos ) {
             list.add( toEntity( addressDTO ) );
         }
 
@@ -72,16 +72,54 @@ public class AddressMapperImpl implements AddressMapper {
     }
 
     @Override
-    public List<AddressDTO> toDTOs(List<Address> addresses) {
-        if ( addresses == null ) {
+    public List<AddressDTO> toDTOs(List<Address> entities) {
+        if ( entities == null ) {
             return null;
         }
 
-        List<AddressDTO> list = new ArrayList<AddressDTO>( addresses.size() );
-        for ( Address address : addresses ) {
-            list.add( toDTO( address ) );
+        List<AddressDTO> list = new ArrayList<AddressDTO>( entities.size() );
+        for ( Address address : entities ) {
+            list.add( toDto( address ) );
         }
 
         return list;
+    }
+
+    @Override
+    public void partialUpdate(Address entity, AddressDTO dto) {
+        if ( dto == null ) {
+            return;
+        }
+
+        if ( dto.getId() != null ) {
+            entity.setId( dto.getId() );
+        }
+        if ( dto.getState() != null ) {
+            entity.setState( dto.getState() );
+        }
+        if ( dto.getCity() != null ) {
+            entity.setCity( dto.getCity() );
+        }
+        if ( dto.getMainStreet() != null ) {
+            entity.setMainStreet( dto.getMainStreet() );
+        }
+        if ( dto.getAlley() != null ) {
+            entity.setAlley( dto.getAlley() );
+        }
+        if ( dto.getNumberPlate() != null ) {
+            entity.setNumberPlate( dto.getNumberPlate() );
+        }
+        if ( dto.getApartmentNumber() != null ) {
+            entity.setApartmentNumber( dto.getApartmentNumber() );
+        }
+        if ( dto.getPostalCode() != null ) {
+            entity.setPostalCode( dto.getPostalCode() );
+        }
+        if ( dto.getLatitude() != null ) {
+            entity.setLatitude( dto.getLatitude() );
+        }
+        if ( dto.getLongitude() != null ) {
+            entity.setLongitude( dto.getLongitude() );
+        }
     }
 }

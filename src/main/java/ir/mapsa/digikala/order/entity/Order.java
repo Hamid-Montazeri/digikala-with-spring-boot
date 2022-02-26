@@ -1,13 +1,12 @@
 package ir.mapsa.digikala.order.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import ir.mapsa.digikala.user.entity.User;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "tbl_order")
 public class Order {
@@ -20,6 +19,9 @@ public class Order {
     private OrderStatus status;
 
     private Date date;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User user;
 
 
 

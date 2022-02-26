@@ -1,105 +1,45 @@
 package ir.mapsa.digikala.product.service;
 
-import ir.mapsa.digikala.category.entity.Category;
+import ir.mapsa.digikala.base.GenericMapper;
+import ir.mapsa.digikala.base.GenericRepository;
+import ir.mapsa.digikala.base.GenericServiceImpl;
 import ir.mapsa.digikala.category.service.ICatService;
-import ir.mapsa.digikala.exception.ConflictException;
-import ir.mapsa.digikala.exception.NotFoundException;
 import ir.mapsa.digikala.product.entity.Product;
+import ir.mapsa.digikala.product.entity.ProductDTO;
+import ir.mapsa.digikala.product.entity.ProductMapper;
 import ir.mapsa.digikala.product.repository.ProductRepo;
-import ir.mapsa.digikala.user.entity.User;
 import ir.mapsa.digikala.user.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
-public class ProductService implements IProductService {
+public class ProductService extends GenericServiceImpl<Product, ProductDTO, Long> implements IProductService {
 
     private final ProductRepo productRepo;
-    private final ICatService catService;
-    private final IUserService userService;
+    private final ProductMapper productMapper;
+//    private final ICatService catService;
+//    private final IUserService userService;
 
-    @Autowired
-    public ProductService(ProductRepo productRepo, ICatService catService, IUserService userService) {
+/*    @Autowired
+    public ProductService(ProductRepo productRepo, ProductMapper productMapper, ICatService catService, IUserService userService) {
         this.productRepo = productRepo;
+        this.productMapper = productMapper;
         this.catService = catService;
         this.userService = userService;
+    }*/
+    @Autowired
+    public ProductService(ProductRepo productRepo, ProductMapper productMapper) {
+        this.productRepo = productRepo;
+        this.productMapper = productMapper;
     }
 
     @Override
-    public Product save(Product product, Long catId, Long userId) {
-        Category category = catService.getCatById(catId);
-        User user = userService.getUserById(userId);
-
-        product.setCategory(category);
-        product.setUser(user);
-
-        if (productRepo.existsById(product.getId())) {
-            throw new ConflictException("The \"product\" with ID \"" + product.getId() + "\" already exists");
-        }
-
-        return productRepo.save(product);
+    protected GenericRepository<Product, Long> getRepository() {
+        return productRepo;
     }
 
     @Override
-    public Product update(Product product) {
-        Optional<Product> optionalProduct = productRepo.findById(product.getId());
-        if (optionalProduct.isEmpty()) {
-            throw new NotFoundException("The Product \"" + product.getName() + "\" with ID \"" + product.getId() + "\" not found");
-        }
-
-        Product savedProduct = optionalProduct.get();
-
-        savedProduct.setName(product.getName());
-        savedProduct.setCategory(product.getCategory());
-        savedProduct.setRegularPrice(product.getRegularPrice());
-        savedProduct.setSalePrice(product.getSalePrice());
-        savedProduct.setImage(product.getImage());
-        savedProduct.setType(product.getType());
-        savedProduct.setUser(product.getUser());
-
-        return productRepo.save(savedProduct);
+    protected GenericMapper<Product, ProductDTO> getEntityMapper() {
+        return productMapper;
     }
-
-    @Override
-    public void deleteById(Long id) {
-        productRepo.deleteById(id);
-    }
-
-    @Override
-    public Product getById(Long id) {
-        Optional<Product> optionalProduct = productRepo.findById(id);
-        if (optionalProduct.isEmpty()) {
-            throw new NotFoundException("The requested Product with ID \"" + id + "\" not found");
-        }
-
-        return optionalProduct.get();
-    }
-
-    @Override
-    @Cacheable(value = "product")
-    public List<Product> getAllProducts() {
-        List<Product> products = (List<Product>) productRepo.findAll();
-        if (products.isEmpty()) {
-            throw new NotFoundException("No Product found!");
-        }
-        return products;
-    }
-
-    @Override
-    @Cacheable(value = "product", key = "#catId")
-    public List<Product> getAllProductsByCatId(Long catId) {
-        List<Product> products = productRepo.findAllByCategory_Id(catId);
-
-        if (products.isEmpty()) {
-            throw new NotFoundException("No Product found!");
-        }
-
-        return products;
-    }
-
-
 }

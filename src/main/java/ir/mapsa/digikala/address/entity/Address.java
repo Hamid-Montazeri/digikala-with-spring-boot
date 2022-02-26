@@ -1,12 +1,11 @@
 package ir.mapsa.digikala.address.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "tbl_address")
 public class Address {

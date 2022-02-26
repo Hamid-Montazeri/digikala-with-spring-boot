@@ -1,8 +1,12 @@
 package ir.mapsa.digikala.order.service;
 
+import ir.mapsa.digikala.base.GenericMapper;
+import ir.mapsa.digikala.base.GenericRepository;
+import ir.mapsa.digikala.base.GenericServiceImpl;
 import ir.mapsa.digikala.exception.ConflictException;
 import ir.mapsa.digikala.exception.NotFoundException;
 import ir.mapsa.digikala.order.entity.Order;
+import ir.mapsa.digikala.order.entity.OrderDTO;
 import ir.mapsa.digikala.order.entity.OrderMapper;
 import ir.mapsa.digikala.order.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class OrderService implements IOrderService {
+public class OrderService extends GenericServiceImpl<Order, OrderDTO, Long> implements IOrderService {
 
     private final OrderRepository orderRepository;
     private final OrderMapper mapper;
@@ -25,54 +29,12 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public Order save(Order order) {
-        if (orderRepository.existsById(order.getId())) {
-            throw new ConflictException("The \"order\" with ID \"" + order.getId() + "\" already exists");
-        }
-        return orderRepository.save(order);
+    protected GenericRepository<Order, Long> getRepository() {
+        return orderRepository;
     }
 
     @Override
-    public Order update(Order order) {
-        Optional<Order> optionalOrder = orderRepository.findById(order.getId());
-
-        if (optionalOrder.isEmpty()) {
-            throw new NotFoundException("The requested \"Order\" not found.");
-        }
-
-        Order savedOrder = optionalOrder.get();
-
-        savedOrder.setStatus(order.getStatus());
-        savedOrder.setDate(order.getDate());
-
-        return savedOrder;
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        orderRepository.deleteById(id);
-    }
-
-    @Override
-    public Order getById(Long id) {
-        Optional<Order> optionalOrder = orderRepository.findById(id);
-
-        if (optionalOrder.isEmpty()) {
-            throw new NotFoundException("The requested \"Order\" not found.");
-        }
-
-        return optionalOrder.get();
-    }
-
-    @Override
-    @Cacheable(value = "order")
-    public List<Order> getAllOrders() {
-        List<Order> orders = (List<Order>) orderRepository.findAll();
-
-        if (orders.isEmpty()) {
-            throw new NotFoundException("No \"Order\" found.");
-        }
-
-        return orders;
+    protected GenericMapper<Order, OrderDTO> getEntityMapper() {
+        return mapper;
     }
 }

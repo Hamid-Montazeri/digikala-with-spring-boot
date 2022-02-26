@@ -1,6 +1,11 @@
 package ir.mapsa.digikala.cart.service;
 
+import ir.mapsa.digikala.base.GenericMapper;
+import ir.mapsa.digikala.base.GenericRepository;
+import ir.mapsa.digikala.base.GenericServiceImpl;
 import ir.mapsa.digikala.cart.entity.Cart;
+import ir.mapsa.digikala.cart.entity.CartDTO;
+import ir.mapsa.digikala.cart.entity.CartMapper;
 import ir.mapsa.digikala.cart.repository.CartRepository;
 import ir.mapsa.digikala.exception.ConflictException;
 import ir.mapsa.digikala.exception.NotFoundException;
@@ -12,16 +17,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CartService implements ICartService {
+public class CartService extends GenericServiceImpl<Cart, CartDTO, Long> implements ICartService {
 
     private final CartRepository cartRepository;
+    private final CartMapper cartMapper;
 
     @Autowired
-    public CartService(CartRepository cartRepository) {
+    public CartService(CartRepository cartRepository, CartMapper cartMapper) {
         this.cartRepository = cartRepository;
+        this.cartMapper = cartMapper;
     }
 
-    @Override
+    /*@Override
     public Cart save(Cart cart) {
         if (cartRepository.existsById(cart.getId())) {
             throw new ConflictException("The cart with ID \"" + cart.getId() + "\" already exists");
@@ -70,5 +77,18 @@ public class CartService implements ICartService {
         }
 
         return carts;
+    }*/
+
+    @Override
+    protected GenericRepository<Cart, Long> getRepository() {
+        return cartRepository;
     }
+
+    @Override
+    protected GenericMapper<Cart, CartDTO> getEntityMapper() {
+        return cartMapper;
+    }
+
+
+
 }

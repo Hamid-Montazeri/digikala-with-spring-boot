@@ -1,14 +1,12 @@
 package ir.mapsa.digikala.cart.entity;
 
 import ir.mapsa.digikala.user.entity.User;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "tbl_cart")
 public class Cart {
@@ -21,7 +19,7 @@ public class Cart {
 
     private Date date;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
 }

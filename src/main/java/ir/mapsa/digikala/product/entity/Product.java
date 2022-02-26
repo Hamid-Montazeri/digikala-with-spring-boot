@@ -3,13 +3,11 @@ package ir.mapsa.digikala.product.entity;
 import ir.mapsa.digikala.cart.entity.Cart;
 import ir.mapsa.digikala.category.entity.Category;
 import ir.mapsa.digikala.user.entity.User;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "tbl_product")
 public class Product {
@@ -37,11 +35,11 @@ public class Product {
     @JoinColumn
     private Category category;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+/*    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private Cart cart;
+    private Cart cart;*/
 
 
 }

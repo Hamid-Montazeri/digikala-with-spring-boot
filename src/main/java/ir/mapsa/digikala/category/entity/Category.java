@@ -1,12 +1,10 @@
 package ir.mapsa.digikala.category.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "tbl_category")
 public class Category {

@@ -1,5 +1,6 @@
 package ir.mapsa.digikala.user.controller;
 
+import ir.mapsa.digikala.exception.NotFoundException;
 import ir.mapsa.digikala.user.entity.User;
 import ir.mapsa.digikala.user.entity.UserDTO;
 import ir.mapsa.digikala.user.entity.UserMapper;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -26,15 +28,27 @@ public class UserController {
 
     @PostMapping("/save")
     public ResponseEntity<User> save(@RequestBody UserDTO userDTO) {
-        User user = mapper.toEntity(userDTO);
-        User savedUser = userService.save(user);
+        User savedUser = userService.save(userDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
     @PutMapping("/update")
     public ResponseEntity<User> update(@RequestBody UserDTO userDTO) {
-        User user = mapper.toEntity(userDTO);
-        User updatedUser = userService.update(user);
+        Optional<User> optionalUser = userService.findById(mapper.toEntity(userDTO).getId());
+
+        if (optionalUser.isEmpty()) {
+            throw new NotFoundException("The requested \"User\" not found.");
+        }
+
+        User savedUser = optionalUser.get();
+
+        savedUser.setName(userDTO.getName());
+        savedUser.setFamily(userDTO.getFamily());
+        savedUser.setPhone(userDTO.getPhone());
+        savedUser.setAddress(userDTO.getAddress());
+
+        User updatedUser = userService.save(mapper.toDto(savedUser));
+
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(updatedUser);
     }
 
@@ -46,14 +60,20 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
-        User user = userService.getUserById(id);
-        UserDTO userDTO = mapper.toDTO(user);
+        Optional<User> optionalUser = userService.findById(id);
+
+        if (optionalUser.isEmpty()) {
+            throw new NotFoundException("The requested \"User\" not found.");
+        }
+
+        UserDTO userDTO = mapper.toDto(optionalUser.get());
+
         return ResponseEntity.ok(userDTO);
     }
 
     @GetMapping("/")
     public ResponseEntity<List<UserDTO>> getAll() {
-        List<User> allUsers = userService.getAllUsers();
+        List<User> allUsers = (List<User>) userService.findAll();
         List<UserDTO> userDTOS = mapper.toDTOs(allUsers);
         return ResponseEntity.ok(userDTOS);
     }

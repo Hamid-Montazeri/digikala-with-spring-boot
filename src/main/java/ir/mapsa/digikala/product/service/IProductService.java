@@ -1,21 +1,9 @@
 package ir.mapsa.digikala.product.service;
 
+import ir.mapsa.digikala.base.GenericService;
 import ir.mapsa.digikala.product.entity.Product;
+import ir.mapsa.digikala.product.entity.ProductDTO;
 
-import java.util.List;
-
-public interface IProductService {
-
-    Product save(Product product, Long catId, Long userId);
-
-    Product update(Product product);
-
-    void deleteById(Long id);
-
-    Product getById(Long id);
-
-    List<Product> getAllProducts();
-
-    List<Product> getAllProductsByCatId(Long catId);
+public interface IProductService extends GenericService<Product, ProductDTO, Long> {
 
 }

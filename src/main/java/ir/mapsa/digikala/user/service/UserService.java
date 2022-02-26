@@ -1,72 +1,35 @@
 package ir.mapsa.digikala.user.service;
 
-import ir.mapsa.digikala.exception.NotFoundException;
+import ir.mapsa.digikala.base.GenericMapper;
+import ir.mapsa.digikala.base.GenericRepository;
+import ir.mapsa.digikala.base.GenericServiceImpl;
 import ir.mapsa.digikala.user.entity.User;
+import ir.mapsa.digikala.user.entity.UserDTO;
+import ir.mapsa.digikala.user.entity.UserMapper;
 import ir.mapsa.digikala.user.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
-public class UserService implements IUserService {
+public class UserService extends GenericServiceImpl<User, UserDTO, Long> implements IUserService {
 
     private final UserRepo userRepo;
+    private final UserMapper userMapper;
 
     @Autowired
-    public UserService(UserRepo userRepo) {
+    public UserService(UserRepo userRepo, UserMapper userMapper) {
         this.userRepo = userRepo;
+        this.userMapper = userMapper;
+    }
+
+
+    @Override
+    protected GenericRepository<User, Long> getRepository() {
+        return userRepo;
     }
 
     @Override
-    public User save(User user) {
-//        if (userRepo.existsById(user.getId())) {
-//            throw new ConflictException("The User with ID \"" + user.getId() + "\" already exists");
-//        }
-        return userRepo.save(user);
+    protected GenericMapper<User, UserDTO> getEntityMapper() {
+        return userMapper;
     }
-
-    @Override
-    public User update(User user) {
-        Optional<User> optionalUser = userRepo.findById(user.getId());
-        if (optionalUser.isEmpty()) {
-            throw new NotFoundException("The Product \"" + user.getName() + "\" with ID \"" + user.getId() + "\" not found");
-        }
-
-        User savedUser = optionalUser.get();
-
-        savedUser.setName(user.getName());
-        savedUser.setFamily(user.getFamily());
-        savedUser.setPhone(user.getPhone());
-
-        return userRepo.save(savedUser);
-    }
-
-    @Override
-    public void delete(User user) {
-        userRepo.delete(user);
-    }
-
-    @Override
-    public User getUserById(Long id) {
-        Optional<User> optionalUser = userRepo.findById(id);
-        if (optionalUser.isEmpty()) {
-            throw new NotFoundException("The requested User with ID \"" + id + "\" not found");
-        }
-
-        return optionalUser.get();
-    }
-
-    @Override
-    @Cacheable(value = "user")
-    public List<User> getAllUsers() {
-        List<User> users = (List<User>) userRepo.findAll();
-        if (users.isEmpty()) {
-            throw new NotFoundException("No User found!");
-        }
-        return users;
-    }
-
 }

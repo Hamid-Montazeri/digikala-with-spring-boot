@@ -7,50 +7,50 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-02-24T01:20:09+0330",
+    date = "2022-02-26T02:08:26+0330",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.1 (Oracle Corporation)"
 )
 @Component
 public class OrderMapperImpl implements OrderMapper {
 
     @Override
-    public Order toEntity(OrderDTO orderDTO) {
-        if ( orderDTO == null ) {
+    public Order toEntity(OrderDTO dto) {
+        if ( dto == null ) {
             return null;
         }
 
         Order order = new Order();
 
-        order.setId( orderDTO.getId() );
-        order.setStatus( orderDTO.getStatus() );
-        order.setDate( orderDTO.getDate() );
+        order.setId( dto.getId() );
+        order.setStatus( dto.getStatus() );
+        order.setDate( dto.getDate() );
 
         return order;
     }
 
     @Override
-    public OrderDTO toDTO(Order order) {
-        if ( order == null ) {
+    public OrderDTO toDto(Order entity) {
+        if ( entity == null ) {
             return null;
         }
 
         OrderDTO orderDTO = new OrderDTO();
 
-        orderDTO.setId( order.getId() );
-        orderDTO.setStatus( order.getStatus() );
-        orderDTO.setDate( order.getDate() );
+        orderDTO.setId( entity.getId() );
+        orderDTO.setStatus( entity.getStatus() );
+        orderDTO.setDate( entity.getDate() );
 
         return orderDTO;
     }
 
     @Override
-    public List<Order> toEntities(List<OrderDTO> orderDTOs) {
-        if ( orderDTOs == null ) {
+    public List<Order> toEntities(List<OrderDTO> dtos) {
+        if ( dtos == null ) {
             return null;
         }
 
-        List<Order> list = new ArrayList<Order>( orderDTOs.size() );
-        for ( OrderDTO orderDTO : orderDTOs ) {
+        List<Order> list = new ArrayList<Order>( dtos.size() );
+        for ( OrderDTO orderDTO : dtos ) {
             list.add( toEntity( orderDTO ) );
         }
 
@@ -58,16 +58,33 @@ public class OrderMapperImpl implements OrderMapper {
     }
 
     @Override
-    public List<OrderDTO> toDTOs(List<Order> orders) {
-        if ( orders == null ) {
+    public List<OrderDTO> toDTOs(List<Order> entities) {
+        if ( entities == null ) {
             return null;
         }
 
-        List<OrderDTO> list = new ArrayList<OrderDTO>( orders.size() );
-        for ( Order order : orders ) {
-            list.add( toDTO( order ) );
+        List<OrderDTO> list = new ArrayList<OrderDTO>( entities.size() );
+        for ( Order order : entities ) {
+            list.add( toDto( order ) );
         }
 
         return list;
+    }
+
+    @Override
+    public void partialUpdate(Order entity, OrderDTO dto) {
+        if ( dto == null ) {
+            return;
+        }
+
+        if ( dto.getId() != null ) {
+            entity.setId( dto.getId() );
+        }
+        if ( dto.getStatus() != null ) {
+            entity.setStatus( dto.getStatus() );
+        }
+        if ( dto.getDate() != null ) {
+            entity.setDate( dto.getDate() );
+        }
     }
 }

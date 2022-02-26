@@ -1,5 +1,6 @@
 package ir.mapsa.digikala.order.controller;
 
+import ir.mapsa.digikala.exception.NotFoundException;
 import ir.mapsa.digikala.order.entity.Order;
 import ir.mapsa.digikala.order.entity.OrderDTO;
 import ir.mapsa.digikala.order.entity.OrderMapper;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/order")
@@ -26,14 +28,25 @@ public class OrderController {
 
     @PostMapping("/save")
     public ResponseEntity<Order> save(@RequestBody OrderDTO orderDTO) {
-        Order order = orderService.save(mapper.toEntity(orderDTO));
+        Order order = orderService.save(orderDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(order);
     }
 
     @PutMapping("/update")
     public ResponseEntity<Order> update(@RequestBody OrderDTO orderDTO) {
-        Order order = mapper.toEntity(orderDTO);
-        Order updatedOrder = orderService.update(order);
+        Optional<Order> optionalOrder = orderService.findById(orderDTO.getId());
+
+        if (optionalOrder.isEmpty()) {
+            throw new NotFoundException("The requested \"Order\" not found.");
+        }
+
+        Order savedOrder = optionalOrder.get();
+
+        savedOrder.setDate(orderDTO.getDate());
+        savedOrder.setStatus(orderDTO.getStatus());
+
+        Order updatedOrder = orderService.save(mapper.toDto(savedOrder));
+
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(updatedOrder);
     }
 
@@ -45,14 +58,19 @@ public class OrderController {
 
     @GetMapping("/{id}")
     public ResponseEntity<OrderDTO> getOrderById(@PathVariable Long id) {
-        Order order = orderService.getById(id);
-        OrderDTO orderDTO = mapper.toDTO(order);
+        Optional<Order> optionalOrder = orderService.findById(id);
+
+        if (optionalOrder.isEmpty()) {
+            throw new NotFoundException("The requested \"Order\" not found.");
+        }
+
+        OrderDTO orderDTO = mapper.toDto(optionalOrder.get());
         return ResponseEntity.ok(orderDTO);
     }
 
     @GetMapping("/")
     public ResponseEntity<List<OrderDTO>> getAll() {
-        List<Order> orders = orderService.getAllOrders();
+        List<Order> orders = (List<Order>) orderService.findAll();
         List<OrderDTO> orderDTOs = mapper.toDTOs(orders);
         return ResponseEntity.ok(orderDTOs);
     }

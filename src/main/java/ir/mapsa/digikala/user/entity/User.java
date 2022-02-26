@@ -1,13 +1,13 @@
 package ir.mapsa.digikala.user.entity;
 
 import ir.mapsa.digikala.address.entity.Address;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "tbl_user")
-@Data
 public class User {
 
     @Id
@@ -23,7 +23,7 @@ public class User {
     @Column
     private String phone;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
 }
