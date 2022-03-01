@@ -1,6 +1,5 @@
 package ir.mapsa.digikala.user.controller;
 
-import ir.mapsa.digikala.exception.NotFoundException;
 import ir.mapsa.digikala.user.entity.User;
 import ir.mapsa.digikala.user.entity.UserDTO;
 import ir.mapsa.digikala.user.entity.UserMapper;
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     private final IUserService userService;

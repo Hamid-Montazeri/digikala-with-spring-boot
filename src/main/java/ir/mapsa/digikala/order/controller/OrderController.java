@@ -1,6 +1,5 @@
 package ir.mapsa.digikala.order.controller;
 
-import ir.mapsa.digikala.exception.NotFoundException;
 import ir.mapsa.digikala.order.entity.Order;
 import ir.mapsa.digikala.order.entity.OrderDTO;
 import ir.mapsa.digikala.order.entity.OrderMapper;
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 public class OrderController {
 
     private final IOrderService orderService;

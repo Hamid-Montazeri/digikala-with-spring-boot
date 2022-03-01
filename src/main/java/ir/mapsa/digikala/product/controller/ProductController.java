@@ -1,6 +1,5 @@
 package ir.mapsa.digikala.product.controller;
 
-import ir.mapsa.digikala.exception.NotFoundException;
 import ir.mapsa.digikala.product.entity.Product;
 import ir.mapsa.digikala.product.entity.ProductDTO;
 import ir.mapsa.digikala.product.entity.ProductMapper;
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
 
     private final IProductService productService;

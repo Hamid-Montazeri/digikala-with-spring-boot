@@ -1,7 +1,7 @@
 package ir.mapsa.digikala.user.entity;
 
 import ir.mapsa.digikala.address.entity.Address;
-import lombok.*;
+import lombok.Data;
 
 import javax.persistence.*;
 

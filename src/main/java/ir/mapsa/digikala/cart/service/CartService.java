@@ -7,14 +7,8 @@ import ir.mapsa.digikala.cart.entity.Cart;
 import ir.mapsa.digikala.cart.entity.CartDTO;
 import ir.mapsa.digikala.cart.entity.CartMapper;
 import ir.mapsa.digikala.cart.repository.CartRepository;
-import ir.mapsa.digikala.exception.ConflictException;
-import ir.mapsa.digikala.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CartService extends GenericServiceImpl<Cart, CartDTO, Long> implements ICartService {

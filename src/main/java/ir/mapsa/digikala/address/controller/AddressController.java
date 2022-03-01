@@ -4,7 +4,6 @@ import ir.mapsa.digikala.address.entity.Address;
 import ir.mapsa.digikala.address.entity.AddressDTO;
 import ir.mapsa.digikala.address.entity.AddressMapper;
 import ir.mapsa.digikala.address.service.IAddressService;
-import ir.mapsa.digikala.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/address")
+@RequestMapping("/addresses")
 public class AddressController {
 
     private final IAddressService addressService;

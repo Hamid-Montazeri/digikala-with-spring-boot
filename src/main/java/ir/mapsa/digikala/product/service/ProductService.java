@@ -3,12 +3,10 @@ package ir.mapsa.digikala.product.service;
 import ir.mapsa.digikala.base.GenericMapper;
 import ir.mapsa.digikala.base.GenericRepository;
 import ir.mapsa.digikala.base.GenericServiceImpl;
-import ir.mapsa.digikala.category.service.ICatService;
 import ir.mapsa.digikala.product.entity.Product;
 import ir.mapsa.digikala.product.entity.ProductDTO;
 import ir.mapsa.digikala.product.entity.ProductMapper;
 import ir.mapsa.digikala.product.repository.ProductRepo;
-import ir.mapsa.digikala.user.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

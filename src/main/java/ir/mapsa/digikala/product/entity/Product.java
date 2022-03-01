@@ -1,8 +1,6 @@
 package ir.mapsa.digikala.product.entity;
 
-import ir.mapsa.digikala.cart.entity.Cart;
 import ir.mapsa.digikala.category.entity.Category;
-import ir.mapsa.digikala.user.entity.User;
 import lombok.Data;
 
 import javax.persistence.*;

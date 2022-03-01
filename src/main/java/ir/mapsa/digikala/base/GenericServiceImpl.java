@@ -1,6 +1,5 @@
 package ir.mapsa.digikala.base;
 
-import java.util.List;
 import java.util.Optional;
 
 public abstract class GenericServiceImpl<T, D, PK> implements GenericService<T, D, PK> {

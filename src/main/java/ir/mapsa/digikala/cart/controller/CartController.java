@@ -4,7 +4,6 @@ import ir.mapsa.digikala.cart.entity.Cart;
 import ir.mapsa.digikala.cart.entity.CartDTO;
 import ir.mapsa.digikala.cart.entity.CartMapper;
 import ir.mapsa.digikala.cart.service.ICartService;
-import ir.mapsa.digikala.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("/carts")
 public class CartController {
 
     private final ICartService cartService;

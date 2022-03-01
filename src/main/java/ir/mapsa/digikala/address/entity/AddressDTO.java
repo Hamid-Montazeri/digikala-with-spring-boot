@@ -37,7 +37,4 @@ public class AddressDTO {
     private Long longitude;
 
 
-
-
-
 }

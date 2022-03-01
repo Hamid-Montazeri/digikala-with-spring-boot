@@ -5,7 +5,6 @@ import ir.mapsa.digikala.category.entity.CategoryDTO;
 import ir.mapsa.digikala.category.entity.CategoryMapper;
 import ir.mapsa.digikala.category.service.CatServiceImpl;
 import ir.mapsa.digikala.category.service.ICatService;
-import ir.mapsa.digikala.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/categories")
 public class CatController {
 
     private final ICatService catService;
