@@ -6,7 +6,7 @@ import ir.mapsa.digikala.dto.UserDTO;
 import ir.mapsa.digikala.model.User;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = AddressMapper.class)
 public interface UserMapper extends GenericMapper<User, UserDTO> {
 
 
