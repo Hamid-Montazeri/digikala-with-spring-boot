@@ -5,6 +5,7 @@ import ir.mapsa.digikala.mapper.AddressMapper;
 import ir.mapsa.digikala.model.Address;
 import ir.mapsa.digikala.service.IAddressService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/addresses")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AddressController {
 
     private final IAddressService addressService;
@@ -22,26 +23,13 @@ public class AddressController {
 
     @PostMapping("/save")
     public ResponseEntity<Address> save(@RequestBody AddressDTO addressDTO) {
-        Address savedAddress = addressService.save(addressDTO);
+        Address savedAddress = addressService.save(addressMapper.toEntity(addressDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(savedAddress);
     }
 
     @PutMapping("/update")
     public ResponseEntity<Address> update(@RequestBody AddressDTO addressDTO) {
-        Address savedAddress = addressService.findById(addressDTO.getId()).orElseThrow();
-
-        savedAddress.setState(addressDTO.getState());
-        savedAddress.setCity(addressDTO.getCity());
-        savedAddress.setMainStreet(addressDTO.getMainStreet());
-        savedAddress.setAlley(addressDTO.getAlley());
-        savedAddress.setNumberPlate(addressDTO.getNumberPlate());
-        savedAddress.setApartmentNumber(addressDTO.getApartmentNumber());
-        savedAddress.setPostalCode(addressDTO.getPostalCode());
-        savedAddress.setLatitude(addressDTO.getLatitude());
-        savedAddress.setLongitude(addressDTO.getLongitude());
-
-        Address updatedAddress = addressService.save(addressMapper.toDto(savedAddress));
-
+        Address updatedAddress = addressService.save(addressMapper.toEntity(addressDTO));
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(updatedAddress);
     }
 

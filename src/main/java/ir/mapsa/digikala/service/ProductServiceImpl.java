@@ -11,21 +11,19 @@ import ir.mapsa.digikala.model.Category;
 import ir.mapsa.digikala.model.Product;
 import ir.mapsa.digikala.repository.CategoryRepository;
 import ir.mapsa.digikala.repository.ProductRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
-@NoArgsConstructor
-public class ProductService extends GenericServiceImpl<Product, ProductDTO, Long> implements IProductService {
+@RequiredArgsConstructor
+public class ProductServiceImpl extends GenericServiceImpl<Product, ProductDTO, Long> implements IProductService {
 
-    private ProductRepository productRepository;
-    private CategoryRepository categoryRepository;
-    private ProductMapper productMapper;
-    private CategoryMapper categoryMapper;
+    private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
+    private final ProductMapper productMapper;
+    private final CategoryMapper categoryMapper;
 
     @Override
     protected GenericRepository<Product, Long> getRepository() {

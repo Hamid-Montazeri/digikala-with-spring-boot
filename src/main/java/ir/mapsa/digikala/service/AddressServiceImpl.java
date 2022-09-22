@@ -7,20 +7,15 @@ import ir.mapsa.digikala.dto.AddressDTO;
 import ir.mapsa.digikala.mapper.AddressMapper;
 import ir.mapsa.digikala.model.Address;
 import ir.mapsa.digikala.repository.AddressRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AddressService extends GenericServiceImpl<Address, AddressDTO, Long> implements IAddressService {
+@RequiredArgsConstructor
+public class AddressServiceImpl extends GenericServiceImpl<Address, AddressDTO, Long> implements IAddressService {
 
     private final AddressRepository addressRepository;
     private final AddressMapper addressMapper;
-
-    @Autowired
-    public AddressService(AddressRepository addressRepository, AddressMapper addressMapper) {
-        this.addressRepository = addressRepository;
-        this.addressMapper = addressMapper;
-    }
 
     @Override
     protected GenericRepository<Address, Long> getRepository() {

@@ -5,6 +5,7 @@ import ir.mapsa.digikala.mapper.CartMapper;
 import ir.mapsa.digikala.model.Cart;
 import ir.mapsa.digikala.service.ICartService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/carts")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CartController {
 
     private final ICartService cartService;
@@ -22,26 +23,13 @@ public class CartController {
 
     @PostMapping("/save")
     public ResponseEntity<Cart> save(@RequestBody CartDTO cartDTO) {
-        Cart savedCart = cartService.save(cartDTO);
+        Cart savedCart = cartService.save(cartMapper.toEntity(cartDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCart);
     }
 
     @PutMapping("/update")
     public ResponseEntity<Cart> update(@RequestBody CartDTO cartDTO) {
-        Optional<Cart> optionalCart = cartService.findById(cartDTO.getId());
-
-        if (optionalCart.isEmpty()) {
-            throw new RuntimeException("The requested \"Cart\" not found.");
-        }
-
-        Cart savedCart = optionalCart.get();
-
-        savedCart.setCode(cartDTO.getCode());
-        savedCart.setDate(cartDTO.getDate());
-        savedCart.setUser(cartDTO.getUser());
-
-        Cart updatedCart = cartService.save(cartMapper.toDto(savedCart));
-
+        Cart updatedCart = cartService.save(cartMapper.toEntity(cartDTO));
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(updatedCart);
     }
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-09-22T17:40:39+0330",
+    date = "2022-09-22T20:36:42+0330",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.1 (Oracle Corporation)"
 )
 @Component
@@ -26,6 +26,7 @@ public class OrderMapperImpl implements OrderMapper {
         order.setId( dto.getId() );
         order.setStatus( dto.getStatus() );
         order.setDate( dto.getDate() );
+        order.setUser( dto.getUser() );
 
         return order;
     }
@@ -41,6 +42,7 @@ public class OrderMapperImpl implements OrderMapper {
         orderDTO.setId( entity.getId() );
         orderDTO.setStatus( entity.getStatus() );
         orderDTO.setDate( entity.getDate() );
+        orderDTO.setUser( entity.getUser() );
 
         return orderDTO;
     }
@@ -87,6 +89,9 @@ public class OrderMapperImpl implements OrderMapper {
         }
         if ( dto.getDate() != null ) {
             entity.setDate( dto.getDate() );
+        }
+        if ( dto.getUser() != null ) {
+            entity.setUser( dto.getUser() );
         }
     }
 }

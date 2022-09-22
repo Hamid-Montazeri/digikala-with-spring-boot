@@ -8,8 +8,7 @@ public abstract class GenericServiceImpl<T, D, PK> implements GenericService<T, 
     protected abstract GenericMapper<T, D> getEntityMapper();
 
     @Override
-    public T save(D dto) {
-        T entity = getEntityMapper().toEntity(dto);
+    public T save(T entity) {
         return getRepository().save(entity);
     }
 

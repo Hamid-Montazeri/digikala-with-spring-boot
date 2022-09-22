@@ -7,21 +7,15 @@ import ir.mapsa.digikala.dto.UserDTO;
 import ir.mapsa.digikala.mapper.UserMapper;
 import ir.mapsa.digikala.model.User;
 import ir.mapsa.digikala.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService extends GenericServiceImpl<User, UserDTO, Long> implements IUserService {
+@RequiredArgsConstructor
+public class UserServiceImpl extends GenericServiceImpl<User, UserDTO, Long> implements IUserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-
-    @Autowired
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.userMapper = userMapper;
-    }
-
 
     @Override
     protected GenericRepository<User, Long> getRepository() {

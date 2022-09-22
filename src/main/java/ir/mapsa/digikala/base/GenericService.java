@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public interface GenericService<T, D, PK> {
 
-    T save(D dto);
+    T save(T entity);
 
     Optional<T> findById(PK id);
 

@@ -4,17 +4,16 @@ import ir.mapsa.digikala.dto.UserDTO;
 import ir.mapsa.digikala.mapper.UserMapper;
 import ir.mapsa.digikala.model.User;
 import ir.mapsa.digikala.service.IUserService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/users")
-@AllArgsConstructor
 public class UserController {
 
     private final IUserService userService;
@@ -22,21 +21,14 @@ public class UserController {
 
     @PostMapping("/save")
     public ResponseEntity<User> save(@RequestBody UserDTO userDTO) {
-        User savedUser = userService.save(userDTO);
+        User savedUser = userService.save(mapper.toEntity(userDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
     @PutMapping("/update")
     public ResponseEntity<User> update(@RequestBody UserDTO userDTO) {
-        User savedUser = userService.findById(mapper.toEntity(userDTO).getId()).orElseThrow();
-
-        savedUser.setName(userDTO.getName());
-        savedUser.setFamily(userDTO.getFamily());
-        savedUser.setPhone(userDTO.getPhone());
-        savedUser.setAddress(userDTO.getAddress());
-
-        User updatedUser = userService.save(mapper.toDto(savedUser));
-
+        User userEntity = mapper.toEntity(userDTO);
+        User updatedUser = userService.save(userEntity);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(updatedUser);
     }
 

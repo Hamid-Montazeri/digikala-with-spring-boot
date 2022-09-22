@@ -7,5 +7,4 @@ import ir.mapsa.digikala.model.Order;
 
 public interface IOrderService extends GenericService<Order, OrderDTO, Long> {
 
-
 }

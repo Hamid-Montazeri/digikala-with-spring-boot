@@ -31,11 +31,4 @@ public class Product {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Category category;
 
-/*    @ManyToOne(cascade = CascadeType.ALL)
-    private User user;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Cart cart;*/
-
-
 }

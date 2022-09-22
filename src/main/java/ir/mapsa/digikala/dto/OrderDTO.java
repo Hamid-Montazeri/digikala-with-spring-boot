@@ -3,6 +3,7 @@ package ir.mapsa.digikala.dto;
 import io.swagger.annotations.ApiModelProperty;
 import ir.mapsa.digikala.model.Address;
 import ir.mapsa.digikala.model.OrderStatus;
+import ir.mapsa.digikala.model.User;
 import lombok.Data;
 
 import java.util.Date;
@@ -20,7 +21,7 @@ public class OrderDTO {
     private Date date;
 
     @ApiModelProperty(required = true, hidden = false)
-    private Address address;
+    private User user;
 
 
 

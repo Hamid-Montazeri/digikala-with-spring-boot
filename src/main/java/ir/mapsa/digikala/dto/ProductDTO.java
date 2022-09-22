@@ -28,11 +28,4 @@ public class ProductDTO {
     @ApiModelProperty(required = true, hidden = true)
     private CategoryDTO category;
 
-/*    @ApiModelProperty(required = true, hidden = true)
-    private User user;
-
-    @ApiModelProperty(required = true, hidden = true)
-    private Cart cart;*/
-
-
 }

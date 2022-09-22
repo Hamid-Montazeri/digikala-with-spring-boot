@@ -5,16 +5,16 @@ import ir.mapsa.digikala.mapper.OrderMapper;
 import ir.mapsa.digikala.model.Order;
 import ir.mapsa.digikala.service.IOrderService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/orders")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class OrderController {
 
     private final IOrderService orderService;
@@ -22,19 +22,13 @@ public class OrderController {
 
     @PostMapping("/save")
     public ResponseEntity<Order> save(@RequestBody OrderDTO orderDTO) {
-        Order order = orderService.save(orderDTO);
+        Order order = orderService.save(mapper.toEntity(orderDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(order);
     }
 
     @PutMapping("/update")
     public ResponseEntity<Order> update(@RequestBody OrderDTO orderDTO) {
-        Order savedOrder = orderService.findById(orderDTO.getId()).orElseThrow();
-
-        savedOrder.setDate(orderDTO.getDate());
-        savedOrder.setStatus(orderDTO.getStatus());
-
-        Order updatedOrder = orderService.save(mapper.toDto(savedOrder));
-
+        Order updatedOrder = orderService.save(mapper.toEntity(orderDTO));
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(updatedOrder);
     }
 

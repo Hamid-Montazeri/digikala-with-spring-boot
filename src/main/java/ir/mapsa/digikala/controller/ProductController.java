@@ -6,15 +6,16 @@ import ir.mapsa.digikala.model.Product;
 import ir.mapsa.digikala.service.ICategoryService;
 import ir.mapsa.digikala.service.IProductService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@AllArgsConstructor
-@RestController
 @RequestMapping("/products")
+@RestController
+@RequiredArgsConstructor
 public class ProductController {
 
     private final IProductService productService;
@@ -23,24 +24,13 @@ public class ProductController {
 
     @PostMapping("/save")
     public ResponseEntity<Product> save(@RequestBody ProductDTO productDTO) {
-        Long categoryId = categoryService.findById(productDTO.getCategory().getId()).orElseThrow().getId();
-        Product savedProduct = productService.save(productDTO, categoryId);
+        Product savedProduct = productService.save(mapper.toEntity(productDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
     }
 
     @PutMapping("/update")
     public ResponseEntity<Product> update(@RequestBody ProductDTO productDTO) {
-        Product savedProduct = productService.findById(productDTO.getId()).orElseThrow();
-
-        savedProduct.setName(productDTO.getName());
-        savedProduct.setRegularPrice(productDTO.getRegularPrice());
-        savedProduct.setSalePrice(productDTO.getSalePrice());
-        savedProduct.setImage(productDTO.getImage());
-        savedProduct.setProductType(productDTO.getProductType());
-        savedProduct.setCategory(mapper.toEntity(productDTO).getCategory());
-
-        Product updatedProduct = productService.save(mapper.toDto(savedProduct));
-
+        Product updatedProduct = productService.save(mapper.toEntity(productDTO));
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(updatedProduct);
     }
 
