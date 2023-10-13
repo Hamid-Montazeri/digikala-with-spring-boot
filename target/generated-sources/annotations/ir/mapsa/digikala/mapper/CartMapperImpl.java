@@ -2,18 +2,23 @@ package ir.mapsa.digikala.mapper;
 
 import ir.mapsa.digikala.dto.CartDTO;
 import ir.mapsa.digikala.model.Cart;
+import ir.mapsa.digikala.model.User;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-10-13T20:11:08+0330",
+    date = "2023-10-13T21:29:53+0330",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.8.1 (Private Build)"
 )
 @Component
 public class CartMapperImpl implements CartMapper {
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public Cart toEntity(CartDTO dto) {
@@ -26,7 +31,7 @@ public class CartMapperImpl implements CartMapper {
         cart.setId( dto.getId() );
         cart.setCode( dto.getCode() );
         cart.setDate( dto.getDate() );
-        cart.setUser( dto.getUser() );
+        cart.setUser( userMapper.toEntity( dto.getUser() ) );
 
         return cart;
     }
@@ -42,7 +47,7 @@ public class CartMapperImpl implements CartMapper {
         cartDTO.setId( entity.getId() );
         cartDTO.setCode( entity.getCode() );
         cartDTO.setDate( entity.getDate() );
-        cartDTO.setUser( entity.getUser() );
+        cartDTO.setUser( userMapper.toDto( entity.getUser() ) );
 
         return cartDTO;
     }
@@ -91,7 +96,10 @@ public class CartMapperImpl implements CartMapper {
             entity.setDate( dto.getDate() );
         }
         if ( dto.getUser() != null ) {
-            entity.setUser( dto.getUser() );
+            if ( entity.getUser() == null ) {
+                entity.setUser( new User() );
+            }
+            userMapper.partialUpdate( entity.getUser(), dto.getUser() );
         }
     }
 }

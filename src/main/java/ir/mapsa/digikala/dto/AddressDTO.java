@@ -1,6 +1,7 @@
 package ir.mapsa.digikala.dto;
 
 import io.swagger.annotations.ApiModelProperty;
+import ir.mapsa.digikala.model.User;
 import lombok.Data;
 
 @Data
@@ -36,5 +37,7 @@ public class AddressDTO {
     @ApiModelProperty(required = true, hidden = false)
     private Long longitude;
 
+    @ApiModelProperty(required = true, hidden = false)
+    private UserDTO user;
 
 }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 @Slf4j
-public class GlobalResponseEntityExceptionHandler {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = {Exception.class})
     public ResponseEntity<String> handleNoSuchElementException(Exception ex) {

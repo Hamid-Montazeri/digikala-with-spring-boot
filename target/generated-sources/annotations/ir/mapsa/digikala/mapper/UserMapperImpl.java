@@ -1,19 +1,24 @@
 package ir.mapsa.digikala.mapper;
 
 import ir.mapsa.digikala.dto.UserDTO;
+import ir.mapsa.digikala.model.Address;
 import ir.mapsa.digikala.model.User;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-10-13T20:11:08+0330",
+    date = "2023-10-13T21:29:52+0330",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.8.1 (Private Build)"
 )
 @Component
 public class UserMapperImpl implements UserMapper {
+
+    @Autowired
+    private AddressMapper addressMapper;
 
     @Override
     public User toEntity(UserDTO dto) {
@@ -27,7 +32,7 @@ public class UserMapperImpl implements UserMapper {
         user.setName( dto.getName() );
         user.setFamily( dto.getFamily() );
         user.setPhone( dto.getPhone() );
-        user.setAddress( dto.getAddress() );
+        user.setAddress( addressMapper.toEntity( dto.getAddress() ) );
 
         return user;
     }
@@ -44,7 +49,7 @@ public class UserMapperImpl implements UserMapper {
         userDTO.setName( entity.getName() );
         userDTO.setFamily( entity.getFamily() );
         userDTO.setPhone( entity.getPhone() );
-        userDTO.setAddress( entity.getAddress() );
+        userDTO.setAddress( addressMapper.toDto( entity.getAddress() ) );
 
         return userDTO;
     }
@@ -96,7 +101,10 @@ public class UserMapperImpl implements UserMapper {
             entity.setPhone( dto.getPhone() );
         }
         if ( dto.getAddress() != null ) {
-            entity.setAddress( dto.getAddress() );
+            if ( entity.getAddress() == null ) {
+                entity.setAddress( new Address() );
+            }
+            addressMapper.partialUpdate( entity.getAddress(), dto.getAddress() );
         }
     }
 }

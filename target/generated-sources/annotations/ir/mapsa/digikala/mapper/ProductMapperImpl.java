@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-10-13T20:11:08+0330",
+    date = "2023-10-13T21:29:53+0330",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.8.1 (Private Build)"
 )
 @Component
@@ -32,7 +32,7 @@ public class ProductMapperImpl implements ProductMapper {
         product.setName( dto.getName() );
         product.setRegularPrice( dto.getRegularPrice() );
         product.setSalePrice( dto.getSalePrice() );
-        product.setImage( dto.getImage() );
+        product.setImageUrl( dto.getImageUrl() );
         product.setProductType( dto.getProductType() );
         product.setCategory( categoryMapper.toEntity( dto.getCategory() ) );
 
@@ -51,7 +51,7 @@ public class ProductMapperImpl implements ProductMapper {
         productDTO.setName( entity.getName() );
         productDTO.setRegularPrice( entity.getRegularPrice() );
         productDTO.setSalePrice( entity.getSalePrice() );
-        productDTO.setImage( entity.getImage() );
+        productDTO.setImageUrl( entity.getImageUrl() );
         productDTO.setProductType( entity.getProductType() );
         productDTO.setCategory( categoryMapper.toDto( entity.getCategory() ) );
 
@@ -104,8 +104,8 @@ public class ProductMapperImpl implements ProductMapper {
         if ( dto.getSalePrice() != null ) {
             entity.setSalePrice( dto.getSalePrice() );
         }
-        if ( dto.getImage() != null ) {
-            entity.setImage( dto.getImage() );
+        if ( dto.getImageUrl() != null ) {
+            entity.setImageUrl( dto.getImageUrl() );
         }
         if ( dto.getProductType() != null ) {
             entity.setProductType( dto.getProductType() );

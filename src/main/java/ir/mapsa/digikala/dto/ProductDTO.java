@@ -1,6 +1,7 @@
 package ir.mapsa.digikala.dto;
 
 import io.swagger.annotations.ApiModelProperty;
+import ir.mapsa.digikala.model.Category;
 import ir.mapsa.digikala.model.ProductType;
 import lombok.Data;
 

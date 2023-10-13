@@ -19,7 +19,7 @@ public class CartDTO {
     private Date date;
 
     @ApiModelProperty(required = true, hidden = false)
-    private User user;
+    private UserDTO user;
 
 
 }

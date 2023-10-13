@@ -20,7 +20,7 @@ public class UserDTO {
     private String phone;
 
     @ApiModelProperty(required = true, hidden = false)
-    private Address address;
+    private AddressDTO address;
 
 
 }

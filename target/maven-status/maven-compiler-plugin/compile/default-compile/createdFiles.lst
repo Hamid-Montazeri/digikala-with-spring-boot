@@ -7,7 +7,7 @@ ir/mapsa/digikala/service/CategoryServiceImpl.class
 ir/mapsa/digikala/repository/ProductRepository.class
 ir/mapsa/digikala/service/CartServiceImpl.class
 ir/mapsa/digikala/base/GenericService.class
-ir/mapsa/digikala/exception/GlobalResponseEntityExceptionHandler.class
+ir/mapsa/digikala/exception/GlobalExceptionHandler.class
 ir/mapsa/digikala/mapper/OrderMapperImpl.class
 ir/mapsa/digikala/mapper/OrderMapper.class
 ir/mapsa/digikala/mapper/AddressMapperImpl.class

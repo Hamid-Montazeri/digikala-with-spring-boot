@@ -2,18 +2,23 @@ package ir.mapsa.digikala.mapper;
 
 import ir.mapsa.digikala.dto.OrderDTO;
 import ir.mapsa.digikala.model.Order;
+import ir.mapsa.digikala.model.User;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-10-13T20:11:08+0330",
+    date = "2023-10-13T21:29:53+0330",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.8.1 (Private Build)"
 )
 @Component
 public class OrderMapperImpl implements OrderMapper {
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public Order toEntity(OrderDTO dto) {
@@ -26,7 +31,7 @@ public class OrderMapperImpl implements OrderMapper {
         order.setId( dto.getId() );
         order.setStatus( dto.getStatus() );
         order.setDate( dto.getDate() );
-        order.setUser( dto.getUser() );
+        order.setUser( userMapper.toEntity( dto.getUser() ) );
 
         return order;
     }
@@ -42,7 +47,7 @@ public class OrderMapperImpl implements OrderMapper {
         orderDTO.setId( entity.getId() );
         orderDTO.setStatus( entity.getStatus() );
         orderDTO.setDate( entity.getDate() );
-        orderDTO.setUser( entity.getUser() );
+        orderDTO.setUser( userMapper.toDto( entity.getUser() ) );
 
         return orderDTO;
     }
@@ -91,7 +96,10 @@ public class OrderMapperImpl implements OrderMapper {
             entity.setDate( dto.getDate() );
         }
         if ( dto.getUser() != null ) {
-            entity.setUser( dto.getUser() );
+            if ( entity.getUser() == null ) {
+                entity.setUser( new User() );
+            }
+            userMapper.partialUpdate( entity.getUser(), dto.getUser() );
         }
     }
 }

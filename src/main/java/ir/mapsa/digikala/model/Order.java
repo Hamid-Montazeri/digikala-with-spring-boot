@@ -17,6 +17,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    @Temporal(value = TemporalType.DATE)
     private Date date;
 
     @ManyToOne(cascade = CascadeType.ALL)

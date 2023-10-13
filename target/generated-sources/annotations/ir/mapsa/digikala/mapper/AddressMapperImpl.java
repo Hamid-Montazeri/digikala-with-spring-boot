@@ -2,18 +2,23 @@ package ir.mapsa.digikala.mapper;
 
 import ir.mapsa.digikala.dto.AddressDTO;
 import ir.mapsa.digikala.model.Address;
+import ir.mapsa.digikala.model.User;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-10-13T20:26:13+0330",
+    date = "2023-10-13T21:29:52+0330",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.8.1 (Private Build)"
 )
 @Component
 public class AddressMapperImpl implements AddressMapper {
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public Address toEntity(AddressDTO dto) {
@@ -33,6 +38,7 @@ public class AddressMapperImpl implements AddressMapper {
         address.setPostalCode( dto.getPostalCode() );
         address.setLatitude( dto.getLatitude() );
         address.setLongitude( dto.getLongitude() );
+        address.setUser( userMapper.toEntity( dto.getUser() ) );
 
         return address;
     }
@@ -55,6 +61,7 @@ public class AddressMapperImpl implements AddressMapper {
         addressDTO.setPostalCode( entity.getPostalCode() );
         addressDTO.setLatitude( entity.getLatitude() );
         addressDTO.setLongitude( entity.getLongitude() );
+        addressDTO.setUser( userMapper.toDto( entity.getUser() ) );
 
         return addressDTO;
     }
@@ -122,6 +129,12 @@ public class AddressMapperImpl implements AddressMapper {
         }
         if ( dto.getLongitude() != null ) {
             entity.setLongitude( dto.getLongitude() );
+        }
+        if ( dto.getUser() != null ) {
+            if ( entity.getUser() == null ) {
+                entity.setUser( new User() );
+            }
+            userMapper.partialUpdate( entity.getUser(), dto.getUser() );
         }
     }
 }
