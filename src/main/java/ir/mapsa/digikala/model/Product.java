@@ -23,7 +23,7 @@ public class Product {
     private Double salePrice;
 
     @Column
-    private String image;
+    private String imageUrl;
 
     @Enumerated(EnumType.STRING)
     private ProductType productType;

@@ -1,23 +1,18 @@
 package ir.mapsa.digikala.exception;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import java.util.NoSuchElementException;
 
 @RestControllerAdvice
-public class GlobalResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+@Slf4j
+public class GlobalResponseEntityExceptionHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(GlobalResponseEntityExceptionHandler.class);
-
-    @ExceptionHandler(value = {NoSuchElementException.class})
-    public ResponseEntity<Object> handleNoSuchElementException(NoSuchElementException ex) {
-        logger.error("No Such Element Exception:" + ex.getMessage());
+    @ExceptionHandler(value = {Exception.class})
+    public ResponseEntity<String> handleNoSuchElementException(Exception ex) {
+        log.error(ex.getMessage());
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 

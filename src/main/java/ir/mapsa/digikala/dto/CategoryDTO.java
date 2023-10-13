@@ -10,6 +10,6 @@ public class CategoryDTO {
     private Long id;
 
     @ApiModelProperty(required = true, hidden = false)
-    private String name;
+    private String title;
 
 }

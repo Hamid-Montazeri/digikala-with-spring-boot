@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AddressServiceImpl extends GenericServiceImpl<Address, AddressDTO, Long> implements IAddressService {
+public class AddressServiceImpl extends GenericServiceImpl<Address, AddressDTO, Long> implements AddressService {
 
     private final AddressRepository addressRepository;
     private final AddressMapper addressMapper;

@@ -6,6 +6,4 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 @NoRepositoryBean
 public interface GenericRepository<T, PK> extends PagingAndSortingRepository<T, PK> {
 
-
-
 }

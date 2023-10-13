@@ -1,20 +1,40 @@
 package ir.mapsa.digikala.base;
 
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 public abstract class GenericServiceImpl<T, D, PK> implements GenericService<T, D, PK> {
 
     protected abstract GenericRepository<T, PK> getRepository();
+
     protected abstract GenericMapper<T, D> getEntityMapper();
 
     @Override
-    public T save(T entity) {
-        return getRepository().save(entity);
+    public T save(D dto) {
+        return getRepository().save(getEntityMapper().toEntity(dto));
     }
 
     @Override
-    public Optional<T> findById(PK id) {
-        return getRepository().findById(id);
+    public D update(D dto, PK id) {
+        T existingEntity = getRepository().findById(id).orElseThrow(() -> {
+            String errorMessage = String.format("Requested type with id %s not found.", id);
+            return new NoSuchElementException(errorMessage);
+        });
+
+        getEntityMapper().partialUpdate(existingEntity, dto);
+
+        T updatedEntity = save(getEntityMapper().toDto(existingEntity));
+
+        return getEntityMapper().toDto(updatedEntity);
+    }
+
+    @Override
+    public T findById(PK id) {
+        return getRepository()
+                .findById(id)
+                .orElseThrow(() -> {
+                    String errorMessage = String.format("Requested type with id %s not found.", id);
+                    return new NoSuchElementException(errorMessage);
+                });
     }
 
     @Override

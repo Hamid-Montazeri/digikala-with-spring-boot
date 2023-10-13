@@ -22,6 +22,4 @@ public class CartDTO {
     private User user;
 
 
-
-
 }

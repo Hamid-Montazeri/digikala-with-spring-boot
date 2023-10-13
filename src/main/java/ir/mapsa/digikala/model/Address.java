@@ -10,33 +10,39 @@ import javax.persistence.*;
 public class Address {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY) // no need, because of using @MapsId
     private Long id;
 
+    @Column(nullable = false)
     private String state;
 
+    @Column(nullable = false)
     private String city;
 
-    @Column(name = "main_street")
+    @Column(nullable = false)
     private String mainStreet;
 
+    @Column(nullable = false)
     private String alley;
 
-    @Column(name = "number_plate")
+    @Column(nullable = false)
     private Integer numberPlate;
 
-    @Column(name = "apartment_number")
+    @Column(nullable = false)
     private Integer apartmentNumber;
 
-    @Column(name = "postal_code")
+    @Column(nullable = false)
     private String postalCode;
 
+    @Column
     private Long latitude;
 
+    @Column
     private Long longitude;
 
-
-
-
+    @MapsId
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }

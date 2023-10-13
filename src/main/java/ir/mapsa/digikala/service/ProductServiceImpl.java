@@ -18,7 +18,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ProductServiceImpl extends GenericServiceImpl<Product, ProductDTO, Long> implements IProductService {
+public class ProductServiceImpl extends GenericServiceImpl<Product, ProductDTO, Long> implements ProductService {
 
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;

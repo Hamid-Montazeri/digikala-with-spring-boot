@@ -1,7 +1,6 @@
 package ir.mapsa.digikala.dto;
 
 import io.swagger.annotations.ApiModelProperty;
-import ir.mapsa.digikala.model.Address;
 import ir.mapsa.digikala.model.OrderStatus;
 import ir.mapsa.digikala.model.User;
 import lombok.Data;
@@ -22,8 +21,6 @@ public class OrderDTO {
 
     @ApiModelProperty(required = true, hidden = false)
     private User user;
-
-
 
 
 }

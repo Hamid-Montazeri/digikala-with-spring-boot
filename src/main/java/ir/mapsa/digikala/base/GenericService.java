@@ -1,13 +1,13 @@
 package ir.mapsa.digikala.base;
 
 
-import java.util.Optional;
-
 public interface GenericService<T, D, PK> {
 
-    T save(T entity);
+    T save(D dto);
 
-    Optional<T> findById(PK id);
+    D update(D dto, PK id);
+
+    T findById(PK id);
 
     boolean existsById(PK id);
 

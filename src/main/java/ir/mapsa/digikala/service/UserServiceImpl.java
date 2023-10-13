@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl extends GenericServiceImpl<User, UserDTO, Long> implements IUserService {
+public class UserServiceImpl extends GenericServiceImpl<User, UserDTO, Long> implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;

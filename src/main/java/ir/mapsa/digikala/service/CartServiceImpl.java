@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CartServiceImpl extends GenericServiceImpl<Cart, CartDTO, Long> implements ICartService {
+public class CartServiceImpl extends GenericServiceImpl<Cart, CartDTO, Long> implements CartService {
 
     private final CartRepository cartRepository;
     private final CartMapper cartMapper;
@@ -26,7 +26,6 @@ public class CartServiceImpl extends GenericServiceImpl<Cart, CartDTO, Long> imp
     protected GenericMapper<Cart, CartDTO> getEntityMapper() {
         return cartMapper;
     }
-
 
 
 }

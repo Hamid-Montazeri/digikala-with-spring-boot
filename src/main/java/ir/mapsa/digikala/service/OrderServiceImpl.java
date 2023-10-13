@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class OrderServiceImpl extends GenericServiceImpl<Order, OrderDTO, Long> implements IOrderService {
+public class OrderServiceImpl extends GenericServiceImpl<Order, OrderDTO, Long> implements OrderService {
 
     private final OrderRepository orderRepository;
     private final OrderMapper mapper;

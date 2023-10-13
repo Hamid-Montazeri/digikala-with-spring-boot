@@ -20,7 +20,7 @@ public class ProductDTO {
     private Double salePrice;
 
     @ApiModelProperty(required = true, hidden = false)
-    private String image;
+    private String imageUrl;
 
     @ApiModelProperty(required = true, hidden = false)
     private ProductType productType;
