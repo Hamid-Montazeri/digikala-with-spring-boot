@@ -1,12 +1,27 @@
 package ir.mapsa.digikala.base;
 
-import java.util.NoSuchElementException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 public abstract class GenericServiceImpl<T, D, PK> implements GenericService<T, D, PK> {
+
+    private Class<T> classType;
+    private final String className;
 
     protected abstract GenericRepository<T, PK> getRepository();
 
     protected abstract GenericMapper<T, D> getEntityMapper();
+
+    public GenericServiceImpl() {
+        Type t = getClass().getGenericSuperclass();
+        ParameterizedType pt = (ParameterizedType) t;
+        classType = (Class<T>) pt.getActualTypeArguments()[0];
+        String templateName = classType.getName(); //Class name generate here include entity.classname it doesn't useful for HQl
+        this.className = templateName.substring(templateName.lastIndexOf('.') + 1, templateName.length());
+    }
 
     @Override
     public T save(D dto) {
@@ -16,8 +31,8 @@ public abstract class GenericServiceImpl<T, D, PK> implements GenericService<T, 
     @Override
     public D update(D dto, PK id) {
         T existingEntity = getRepository().findById(id).orElseThrow(() -> {
-            String errorMessage = String.format("Requested type with id %s not found.", id);
-            return new NoSuchElementException(errorMessage);
+            String errorMessage = String.format("The %s with id %s not found.", className, id);
+            return new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage);
         });
 
         getEntityMapper().partialUpdate(existingEntity, dto);
@@ -32,8 +47,8 @@ public abstract class GenericServiceImpl<T, D, PK> implements GenericService<T, 
         return getRepository()
                 .findById(id)
                 .orElseThrow(() -> {
-                    String errorMessage = String.format("Requested type with id %s not found.", id);
-                    return new NoSuchElementException(errorMessage);
+                    String errorMessage = String.format("The %s with id %s not found.", className, id);
+                    return new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage);
                 });
     }
 
