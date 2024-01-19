@@ -3,7 +3,6 @@ package ir.mapsa.digikala.controller;
 import ir.mapsa.digikala.dto.ProductDTO;
 import ir.mapsa.digikala.mapper.ProductMapper;
 import ir.mapsa.digikala.model.Product;
-import ir.mapsa.digikala.service.CategoryService;
 import ir.mapsa.digikala.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +17,6 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
-    private final CategoryService categoryService;
     private final ProductMapper mapper;
 
     @PostMapping
