@@ -7,9 +7,6 @@ import ir.mapsa.digikala.model.Product;
 import java.util.List;
 
 public interface ProductService extends GenericService<Product, ProductDTO, Long> {
-
-    Product save(ProductDTO productDTO, Long categoryId);
-
     List<Product> findAllByCategoryId(Long catId);
 
 }

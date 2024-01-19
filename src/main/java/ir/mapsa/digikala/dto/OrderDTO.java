@@ -2,7 +2,6 @@ package ir.mapsa.digikala.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import ir.mapsa.digikala.model.OrderStatus;
-import ir.mapsa.digikala.model.User;
 import lombok.Data;
 
 import java.util.Date;
