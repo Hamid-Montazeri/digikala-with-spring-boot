@@ -10,13 +10,12 @@ ir\mapsa\digikala\service\UserService.class
 ir\mapsa\digikala\model\Category.class
 ir\mapsa\digikala\Application.class
 ir\mapsa\digikala\service\CartService.class
-ir\mapsa\digikala\base\GenericMapper.class
 ir\mapsa\digikala\mapper\OrderMapper.class
 ir\mapsa\digikala\model\OrderStatus.class
 ir\mapsa\digikala\service\AddressServiceImpl.class
 ir\mapsa\digikala\model\Cart.class
-ir\mapsa\digikala\base\GenericRepository.class
 ir\mapsa\digikala\repository\AddressRepository.class
+ir\mapsa\digikala\base\BaseServiceImpl.class
 ir\mapsa\digikala\dto\OrderDTO.class
 ir\mapsa\digikala\mapper\UserMapperImpl.class
 ir\mapsa\digikala\model\Order.class
@@ -26,7 +25,6 @@ ir\mapsa\digikala\mapper\CategoryMapperImpl.class
 ir\mapsa\digikala\dto\UserDTO.class
 ir\mapsa\digikala\dto\ProductDTO.class
 ir\mapsa\digikala\repository\UserRepository.class
-ir\mapsa\digikala\base\GenericService.class
 ir\mapsa\digikala\config\CaffeineCacheConfig.class
 ir\mapsa\digikala\service\OrderServiceImpl.class
 ir\mapsa\digikala\controller\AddressController.class
@@ -41,9 +39,11 @@ ir\mapsa\digikala\dto\CategoryDTO.class
 ir\mapsa\digikala\service\AddressService.class
 ir\mapsa\digikala\controller\ProductController.class
 ir\mapsa\digikala\dto\AddressDTO.class
+ir\mapsa\digikala\base\BaseService.class
+ir\mapsa\digikala\base\BaseRepository.class
+ir\mapsa\digikala\base\BaseMapper.class
 ir\mapsa\digikala\mapper\CartMapperImpl.class
 ir\mapsa\digikala\service\OrderService.class
-ir\mapsa\digikala\base\GenericServiceImpl.class
 ir\mapsa\digikala\controller\CategoryController.class
 ir\mapsa\digikala\controller\OrderController.class
 ir\mapsa\digikala\dto\ExceptionDto.class

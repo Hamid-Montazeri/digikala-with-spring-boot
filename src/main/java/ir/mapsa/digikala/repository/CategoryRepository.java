@@ -1,8 +1,8 @@
 package ir.mapsa.digikala.repository;
 
-import ir.mapsa.digikala.base.GenericRepository;
+import ir.mapsa.digikala.base.BaseRepository;
 import ir.mapsa.digikala.model.Category;
 
-public interface CategoryRepository extends GenericRepository<Category, Long> {
+public interface CategoryRepository extends BaseRepository<Category, Long> {
 
 }
