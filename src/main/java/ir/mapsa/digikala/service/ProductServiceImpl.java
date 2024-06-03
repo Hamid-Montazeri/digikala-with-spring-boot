@@ -1,8 +1,8 @@
 package ir.mapsa.digikala.service;
 
-import ir.mapsa.digikala.base.GenericMapper;
-import ir.mapsa.digikala.base.GenericRepository;
-import ir.mapsa.digikala.base.GenericServiceImpl;
+import ir.mapsa.digikala.base.BaseMapper;
+import ir.mapsa.digikala.base.BaseRepository;
+import ir.mapsa.digikala.base.BaseServiceImpl;
 import ir.mapsa.digikala.dto.ProductDTO;
 import ir.mapsa.digikala.mapper.ProductMapper;
 import ir.mapsa.digikala.model.Product;
@@ -14,18 +14,18 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ProductServiceImpl extends GenericServiceImpl<Product, ProductDTO, Long> implements ProductService {
+public class ProductServiceImpl extends BaseServiceImpl<Product, ProductDTO, Long> implements ProductService {
 
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
 
     @Override
-    protected GenericRepository<Product, Long> getRepository() {
+    protected BaseRepository<Product, Long> getRepository() {
         return productRepository;
     }
 
     @Override
-    protected GenericMapper<Product, ProductDTO> getEntityMapper() {
+    protected BaseMapper<Product, ProductDTO> getEntityMapper() {
         return productMapper;
     }
 

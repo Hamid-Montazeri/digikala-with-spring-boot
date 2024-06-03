@@ -1,8 +1,8 @@
 package ir.mapsa.digikala.service;
 
-import ir.mapsa.digikala.base.GenericMapper;
-import ir.mapsa.digikala.base.GenericRepository;
-import ir.mapsa.digikala.base.GenericServiceImpl;
+import ir.mapsa.digikala.base.BaseMapper;
+import ir.mapsa.digikala.base.BaseRepository;
+import ir.mapsa.digikala.base.BaseServiceImpl;
 import ir.mapsa.digikala.dto.CartDTO;
 import ir.mapsa.digikala.mapper.CartMapper;
 import ir.mapsa.digikala.model.Cart;
@@ -12,18 +12,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CartServiceImpl extends GenericServiceImpl<Cart, CartDTO, Long> implements CartService {
+public class CartServiceImpl extends BaseServiceImpl<Cart, CartDTO, Long> implements CartService {
 
     private final CartRepository cartRepository;
     private final CartMapper cartMapper;
 
     @Override
-    protected GenericRepository<Cart, Long> getRepository() {
+    protected BaseRepository<Cart, Long> getRepository() {
         return cartRepository;
     }
 
     @Override
-    protected GenericMapper<Cart, CartDTO> getEntityMapper() {
+    protected BaseMapper<Cart, CartDTO> getEntityMapper() {
         return cartMapper;
     }
 
