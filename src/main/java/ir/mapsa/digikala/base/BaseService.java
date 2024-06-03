@@ -3,7 +3,7 @@ package ir.mapsa.digikala.base;
 
 public interface BaseService<T, D, PK> {
 
-    T save(D dto);
+    D save(D dto);
 
     D update(D dto, PK id);
 

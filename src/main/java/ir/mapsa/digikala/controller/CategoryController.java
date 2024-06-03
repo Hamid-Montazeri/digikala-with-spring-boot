@@ -1,53 +1,31 @@
 package ir.mapsa.digikala.controller;
 
+import ir.mapsa.digikala.base.BaseController;
+import ir.mapsa.digikala.base.BaseMapper;
+import ir.mapsa.digikala.base.BaseService;
 import ir.mapsa.digikala.dto.CategoryDTO;
 import ir.mapsa.digikala.mapper.CategoryMapper;
 import ir.mapsa.digikala.model.Category;
 import ir.mapsa.digikala.service.CategoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/categories")
 @RequiredArgsConstructor
-public class CategoryController {
+public class CategoryController extends BaseController<Category, CategoryDTO, Long> {
 
-    private final CategoryService catService;
-    private final CategoryMapper mapper;
+    private final CategoryService categoryService;
+    private final CategoryMapper categoryMapper;
 
-    @PostMapping
-    public ResponseEntity<CategoryDTO> save(@RequestBody CategoryDTO categoryDTO) {
-        Category savedCategory = catService.save(categoryDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toDto(savedCategory));
+    @Override
+    protected BaseService<Category, CategoryDTO, Long> getBaseService() {
+        return categoryService;
     }
 
-    @PutMapping
-    public ResponseEntity<CategoryDTO> update(@RequestBody CategoryDTO categoryDTO) {
-        return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
-                .body(catService.update(categoryDTO, categoryDTO.getId()));
+    @Override
+    protected BaseMapper<Category, CategoryDTO> getBaseMapper() {
+        return categoryMapper;
     }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        catService.deleteById(id);
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable Long id) {
-        return ResponseEntity.ok(mapper.toDto(catService.findById(id)));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<CategoryDTO>> getAll() {
-        List<Category> categories = (List<Category>) catService.findAll();
-        List<CategoryDTO> categoryDTOS = mapper.toDTOs(categories);
-        return ResponseEntity.ok(categoryDTOS);
-    }
-
 }

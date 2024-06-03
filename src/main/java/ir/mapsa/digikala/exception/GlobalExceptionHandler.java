@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = {Exception.class})
-    public ResponseEntity<ExceptionDto> handleNoSuchElementException(Exception ex) {
+    public ResponseEntity<ExceptionDto> handleException(Exception ex) {
         log.error(ex.getMessage());
 
         ExceptionDto exceptionDto = new ExceptionDto();

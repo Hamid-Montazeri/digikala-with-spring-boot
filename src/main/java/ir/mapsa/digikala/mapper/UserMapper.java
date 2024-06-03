@@ -10,5 +10,4 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = {AddressMapper.class, CartMapper.class})
 public interface UserMapper extends BaseMapper<User, UserDTO> {
 
-
 }

@@ -23,22 +23,22 @@ public abstract class BaseServiceImpl<T, D, PK> implements BaseService<T, D, PK>
     }
 
     @Override
-    public T save(D dto) {
-        return getRepository().save(getEntityMapper().toEntity(dto));
+    public D save(D dto) {
+        T entity = getEntityMapper().toEntity(dto);
+        T savedEntity = getRepository().save(entity);
+        return getEntityMapper().toDto(savedEntity);
     }
 
     @Override
     public D update(D dto, PK id) {
         T existingEntity = getRepository().findById(id).orElseThrow(() -> {
-            String errorMessage = String.format("The %s with id %s not found.", className, id);
+            String errorMessage = String.format("%s مورد نظر با آیدی %s یافت نشد", className, id);
             return new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage);
         });
 
         getEntityMapper().partialUpdate(existingEntity, dto);
 
-        T updatedEntity = save(getEntityMapper().toDto(existingEntity));
-
-        return getEntityMapper().toDto(updatedEntity);
+        return save(getEntityMapper().toDto(existingEntity));
     }
 
     @Override
@@ -46,7 +46,7 @@ public abstract class BaseServiceImpl<T, D, PK> implements BaseService<T, D, PK>
         return getRepository()
                 .findById(id)
                 .orElseThrow(() -> {
-                    String errorMessage = String.format("The %s with id %s not found.", className, id);
+                    String errorMessage = String.format("%s مورد نظر با آیدی %s یافت نشد", className, id);
                     return new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage);
                 });
     }

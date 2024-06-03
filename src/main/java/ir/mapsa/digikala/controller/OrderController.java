@@ -1,57 +1,32 @@
 package ir.mapsa.digikala.controller;
 
+import ir.mapsa.digikala.base.BaseController;
+import ir.mapsa.digikala.base.BaseMapper;
+import ir.mapsa.digikala.base.BaseService;
 import ir.mapsa.digikala.dto.OrderDTO;
 import ir.mapsa.digikala.mapper.OrderMapper;
 import ir.mapsa.digikala.model.Order;
 import ir.mapsa.digikala.service.OrderService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/orders")
 @RequiredArgsConstructor
-public class OrderController {
+public class OrderController extends BaseController<Order, OrderDTO, Long> {
 
     private final OrderService orderService;
-    private final OrderMapper mapper;
+    private final OrderMapper orderMapper;
 
-    @PostMapping
-    public ResponseEntity<OrderDTO> save(@RequestBody OrderDTO orderDTO) {
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(mapper.toDto(orderService.save(orderDTO)));
+
+    @Override
+    protected BaseService<Order, OrderDTO, Long> getBaseService() {
+        return orderService;
     }
 
-    @PutMapping
-    public ResponseEntity<OrderDTO> update(@RequestBody OrderDTO orderDTO) {
-        return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
-                .body(orderService.update(orderDTO, orderDTO.getId()));
+    @Override
+    protected BaseMapper<Order, OrderDTO> getBaseMapper() {
+        return orderMapper;
     }
-
-    @DeleteMapping("{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        orderService.deleteById(id);
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<OrderDTO> getOrderById(@PathVariable Long id) {
-        Order savedOrder = orderService.findById(id);
-        OrderDTO orderDTO = mapper.toDto(savedOrder);
-        return ResponseEntity.ok(orderDTO);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<OrderDTO>> getAll() {
-        List<Order> orders = (List<Order>) orderService.findAll();
-        List<OrderDTO> orderDTOs = mapper.toDTOs(orders);
-        return ResponseEntity.ok(orderDTOs);
-    }
-
-
 }

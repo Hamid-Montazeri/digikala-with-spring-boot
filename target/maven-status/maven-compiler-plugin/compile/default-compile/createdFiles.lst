@@ -1,5 +1,6 @@
 ir\mapsa\digikala\mapper\CategoryMapper.class
 ir\mapsa\digikala\mapper\AddressMapper.class
+ir\mapsa\digikala\base\BaseController.class
 ir\mapsa\digikala\mapper\CartMapper.class
 ir\mapsa\digikala\repository\ProductRepository.class
 ir\mapsa\digikala\service\CategoryServiceImpl.class
@@ -8,6 +9,7 @@ ir\mapsa\digikala\model\Product.class
 ir\mapsa\digikala\mapper\AddressMapperImpl.class
 ir\mapsa\digikala\service\UserService.class
 ir\mapsa\digikala\model\Category.class
+ir\mapsa\digikala\util\ResourceBundleUtil.class
 ir\mapsa\digikala\Application.class
 ir\mapsa\digikala\service\CartService.class
 ir\mapsa\digikala\mapper\OrderMapper.class
